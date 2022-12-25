@@ -9,6 +9,9 @@ const header = document.querySelector('.header')
 const allSections = document.querySelectorAll('.section')
 const allButtons = document.getElementsByTagName('button')
 
+const btnScrollTo = document.querySelector('.btn--scroll-to')
+const section1 = document.querySelector('#section--1')
+
 
 const openModal = function(e){
     e.preventDefault()
@@ -51,8 +54,6 @@ console.log(logo.src)
 console.log(logo.getAttribute('src'))
 console.log(logo.dataset.versionNumber)
 
-const btnScrollTo = document.querySelector('.btn--scroll-to')
-const section1 = document.querySelector('#section--1')
 
 btnScrollTo.addEventListener('click', function(e){
     const s1coords = section1.getBoundingClientRect()
@@ -68,6 +69,33 @@ btnScrollTo.addEventListener('click', function(e){
     section1.scrollIntoView({behavior: 'smooth'})
 })
 
+// document.querySelectorAll('.nav__link').forEach(function(el){
+//     el.addEventListener('click', function(e){
+//         e.preventDefault()
+//         const id = this.getAttribute('href')
+//         document.querySelector(id).scrollIntoView({behavior: 'smooth'})
+//     })
+// })
+
+//event delegation: add event listener to parent element
+document.querySelector('.nav__links').addEventListener('click', function(e){
+    e.preventDefault()
+    if(e.target.classList.contains('nav__link')){
+        const id = e.target.getAttribute('href')
+        document.querySelector(id).scrollIntoView({behavior: 'smooth'})
+    }
+})
+
+const tabs = document.querySelectorAll('.operations__tab')
+const tabsContainer = document.querySelector('.operations__tab-container')
+const tabsContent = document.querySelectorAll('operations__content')
+
+tabsContainer.addEventListener('click', function(e){
+    const clicked = e.target.closest('.operations__tab')
+
+    clicked.classList.add('operations__tab--active')
+})
+
 const h1 = document.querySelector('h1')
 
 const alertH1 = function(e){
@@ -75,7 +103,48 @@ const alertH1 = function(e){
     h1.removeEventListener('mouseenter', alertH1)
 }
 
-h1.addEventListener('mouseenter', alertH1)
+// h1.addEventListener('mouseenter', alertH1)
     
+// const randomInt = (min, max) => Math.floor(Math.random() * (max - min + 1) + min)
+// const randomColor = () => `rgb(${randomInt(0, 255)}, ${randomInt(0, 255)}, ${randomInt(0, 255)})`
+// console.log(randomColor())
 
+// document.querySelector('.nav__link').addEventListener('click', function(e){
+//     // this.style.backgroundColor = randomColor()
+//     console.log('LINK', e.target, e.currentTarget)
+
+//     // e.stopPropagation()
+// })
+// document.querySelector('.nav__links').addEventListener('click', function(e){
+//     // this.style.backgroundColor = randomColor()
+//     console.log('LINK', e.target, e.currentTarget)
+// })
+// document.querySelector('.nav').addEventListener('click', function(e){
+//     // this.style.backgroundColor = randomColor()
+//     console.log('LINK', e.target, e.currentTarget)
+// }, true)
  
+
+//children
+console.log(h1.children)
+h1.firstElementChild.style.color = 'white'
+h1.lastElementChild.style.color = 'orangered'
+
+//parent
+// console.log(h1.parentNode)
+// console.log(h1.parentElement)
+
+// h1.closest('.header').style.background = 'var(--gradient-secondary)'
+
+// console.log(h1.previousElementSibling)
+// console.log(h1.nextElementSibling)
+
+console.log(h1.previousSibling)
+console.log(h1.nextSibling)
+
+console.log(h1.parentElement.children);
+
+// [...h1.parentElement.children].forEach(function(el){
+//     if(el !== h1)
+//     el.style.transform = 'scale(0.5)'
+// })
